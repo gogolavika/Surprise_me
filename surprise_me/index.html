@@ -2,25 +2,23 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surprise Me — Головна</title>
     <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/script.js"></script>
 </head>
 <body>
 <header>
-    <div class="container header-container">
+    <div class="container">
         <a href="index.html" class="logo">Surprise Me!</a>
         <nav>
-            <ul class="nav-links">
+            <ul>
+                <li><a href="index.html">Головна</a></li>
                 <li class="dropdown">
-                    <a href="#">Каталог боксів▾</a>
+                    <a href="#">Каталог боксів ▾</a>
                     <ul class="dropdown-content">
-                        <li><a href="catalog.html?theme=HarryPotter">Harry Potter</a></li>
-                        <li><a href="catalog.html?theme=StrangerThings">Stranger Things</a></li>
+                        <li><a href="catalog.html?theme=Harry+Potter">Harry Potter</a></li>
+                        <li><a href="catalog.html?theme=Stranger+Things">Stranger Things</a></li>
                         <li><a href="catalog.html?theme=Friends">Friends</a></li>
-                        <li><a href="catalog.html?theme=Marvel">Marvel</a></li>
-                        <li><a href="catalog.html?theme=Disney">Disney</a></li>
-                        <li><a href="catalog.html">Всі бокси</a></li>
                     </ul>
                 </li>
                 <li><a href="build.html">Зібрати свій бокс</a></li>
@@ -30,9 +28,9 @@
                 <li><a href="cart.html">Корзина</a></li>
             </ul>
             <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
         </nav>
     </div>
@@ -41,41 +39,36 @@
 <main>
     <div class="container">
         <h1>Ласкаво просимо до Surprise Me!</h1>
-        <p>Онлайн-сервіс подарункових боксів для будь-якого свята та настрою. Обирайте, дивуйте, даруйте емоції ♥</p>
+        <p>На нашому сайті ви знайдете унікальні подарункові бокси на будь-який смак та стиль.
+            Обирайте серед готових тематичних боксів або створюйте власний. Ми підготували бокси для фанатів кіно, серіалів, книг і навіть для особливих свят!</p>
 
-        <div class="home-cards">
-            <div class="home-card">
-                <img src="images/gift1.jpg" alt="Подарунковий бокс 1">
-                <h3>Бокс «Harry Potter»</h3>
-                <p>Класичний тематичний бокс для фанатів Гаррі Поттера.</p>
-                <a href="catalog.html?theme=HarryPotter" class="btn">Детальніше</a>
-            </div>
-
-            <div class="home-card">
-                <img src="images/gift2.jpg" alt="Подарунковий бокс 2">
+        <h2>Хіти продажу</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="images/gift2.jpg" alt="Бокс Stranger Things" onclick="openDetail('Stranger Things')">
                 <h3>Бокс «Stranger Things»</h3>
-                <p>Для тих, хто обожнює атмосферу містичного серіалу.</p>
-                <a href="catalog.html?theme=StrangerThings" class="btn">Детальніше</a>
+                <p class="price">520 грн</p>
+                <button class="btn" onclick="openDetail('Stranger Things')">Детальніше</button>
             </div>
 
-            <div class="home-card">
-                <img src="images/gift3.jpg" alt="Подарунковий бокс 3">
+            <div class="product-card">
+                <img src="images/gift3.jpg" alt="Бокс Friends" onclick="openDetail('Friends')">
                 <h3>Бокс «Friends»</h3>
-                <p>Ідеальний подарунок для фанатів культового серіалу.</p>
-                <a href="catalog.html?theme=Friends" class="btn">Детальніше</a>
+                <p class="price">610 грн</p>
+                <button class="btn" onclick="openDetail('Friends')">Детальніше</button>
             </div>
         </div>
+
+        <h2>Що всередині боксів?</h2>
+        <p>Кожен бокс містить унікальні предмети за темою: сувеніри, листівки, солодощі, тематичні аксесуари та багато іншого. Натискаючи «Детальніше», ви можете побачити детальний опис і фото всіх елементів коробки.</p>
     </div>
 </main>
 
 <footer>
     <p>Surprise Me © 2025 | Створено Глуханько Є. та Гоголою В.</p>
 </footer>
-
-<script src="js/script.js"></script>
 </body>
 </html>
-
 
 
 
