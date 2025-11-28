@@ -2,33 +2,69 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surprise Me — Головна</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <header>
-    <div class="container">
+    <div class="container header-container">
         <a href="index.html" class="logo">Surprise Me!</a>
-
         <nav>
-            <ul>
-                <li><a href="index.html">Головна</a></li>
-                <li><a href="products.html">Товари</a></li>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Каталог боксів▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="catalog.html?theme=HarryPotter">Harry Potter</a></li>
+                        <li><a href="catalog.html?theme=StrangerThings">Stranger Things</a></li>
+                        <li><a href="catalog.html?theme=Friends">Friends</a></li>
+                        <li><a href="catalog.html?theme=Marvel">Marvel</a></li>
+                        <li><a href="catalog.html?theme=Disney">Disney</a></li>
+                        <li><a href="catalog.html">Всі бокси</a></li>
+                    </ul>
+                </li>
+                <li><a href="build.html">Зібрати свій бокс</a></li>
+                <li><a href="delivery.html">Доставка та оплата</a></li>
                 <li><a href="about.html">Про нас</a></li>
                 <li><a href="contact.html">Контакти</a></li>
                 <li><a href="cart.html">Корзина</a></li>
             </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
         </nav>
     </div>
 </header>
 
 <main>
     <div class="container">
-        <h1>Ласкаво просимо!</h1>
-        <p>Це головна сторінка нашого сайту подарункових боксів. Обирайте, дивуйте, тіште ♥</p>
+        <h1>Ласкаво просимо до Surprise Me!</h1>
+        <p>Онлайн-сервіс подарункових боксів для будь-якого свята та настрою. Обирайте, дивуйте, даруйте емоції ♥</p>
 
-        <img src="images/logo.png" alt="Логотип Surprise Me" width="300" style="display:block;margin:20px auto;">
+        <div class="home-cards">
+            <div class="home-card">
+                <img src="images/gift1.jpg" alt="Подарунковий бокс 1">
+                <h3>Бокс «Harry Potter»</h3>
+                <p>Класичний тематичний бокс для фанатів Гаррі Поттера.</p>
+                <a href="catalog.html?theme=HarryPotter" class="btn">Детальніше</a>
+            </div>
+
+            <div class="home-card">
+                <img src="images/gift2.jpg" alt="Подарунковий бокс 2">
+                <h3>Бокс «Stranger Things»</h3>
+                <p>Для тих, хто обожнює атмосферу містичного серіалу.</p>
+                <a href="catalog.html?theme=StrangerThings" class="btn">Детальніше</a>
+            </div>
+
+            <div class="home-card">
+                <img src="images/gift3.jpg" alt="Подарунковий бокс 3">
+                <h3>Бокс «Friends»</h3>
+                <p>Ідеальний подарунок для фанатів культового серіалу.</p>
+                <a href="catalog.html?theme=Friends" class="btn">Детальніше</a>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -36,6 +72,10 @@
     <p>Surprise Me © 2025 | Створено Глуханько Є. та Гоголою В.</p>
 </footer>
 
+<script src="js/script.js"></script>
 </body>
 </html>
+
+
+
 

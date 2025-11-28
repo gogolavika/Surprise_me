@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Товари — Surprise Me</title>
+    <title>Зібрати свій бокс — Surprise Me</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -40,30 +40,33 @@
 
 <main>
     <div class="container">
-        <h1>Каталог подарункових боксів</h1>
+        <h1>Зібрати свій бокс</h1>
+        <p>Обирай товари та створюй унікальний подарунок для себе або близьких!</p>
 
-        <div class="products-grid">
-            <div class="product-card">
-                <img src="images/gift1.jpg" alt="Подарунковий бокс 1">
-                <h3>Бокс «Harry Potter»</h3>
-                <p class="price">450 грн</p>
-                <a href="catalog.html?theme=HarryPotter" class="btn">Детальніше</a>
+        <form class="build-box-form">
+            <label>Обрати тематику:</label>
+            <select>
+                <option value="HarryPotter">Harry Potter</option>
+                <option value="StrangerThings">Stranger Things</option>
+                <option value="Friends">Friends</option>
+                <option value="Marvel">Marvel</option>
+                <option value="Disney">Disney</option>
+            </select>
+
+            <label>Додати товари до боксу:</label>
+            <div class="build-products">
+                <input type="checkbox" id="item1" value="Чашка Гаррі Поттер">
+                <label for="item1">Чашка Гаррі Поттер</label><br>
+
+                <input type="checkbox" id="item2" value="Наліпки">
+                <label for="item2">Наліпки</label><br>
+
+                <input type="checkbox" id="item3" value="Шоколад">
+                <label for="item3">Шоколад</label><br>
             </div>
 
-            <div class="product-card">
-                <img src="images/gift2.jpg" alt="Подарунковий бокс 2">
-                <h3>Бокс «Stranger Things»</h3>
-                <p class="price">520 грн</p>
-                <a href="catalog.html?theme=StrangerThings" class="btn">Детальніше</a>
-            </div>
-
-            <div class="product-card">
-                <img src="images/gift3.jpg" alt="Подарунковий бокс 3">
-                <h3>Бокс «Friends»</h3>
-                <p class="price">610 грн</p>
-                <a href="catalog.html?theme=Friends" class="btn">Детальніше</a>
-            </div>
-        </div>
+            <button type="submit" class="btn">Додати в корзину</button>
+        </form>
     </div>
 </main>
 

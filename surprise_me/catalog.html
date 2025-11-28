@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог бокcів — Surprise Me</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <div class="container header-container">
+        <a href="index.html" class="logo">Surprise Me!</a>
+        <nav>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Каталог боксів▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="catalog.html?theme=HarryPotter">Harry Potter</a></li>
+                        <li><a href="catalog.html?theme=StrangerThings">Stranger Things</a></li>
+                        <li><a href="catalog.html?theme=Friends">Friends</a></li>
+                        <li><a href="catalog.html?theme=Marvel">Marvel</a></li>
+                        <li><a href="catalog.html?theme=Disney">Disney</a></li>
+                        <li><a href="catalog.html">Всі бокси</a></li>
+                    </ul>
+                </li>
+                <li><a href="build.html">Зібрати свій бокс</a></li>
+                <li><a href="delivery.html">Доставка та оплата</a></li>
+                <li><a href="about.html">Про нас</a></li>
+                <li><a href="contact.html">Контакти</a></li>
+                <li><a href="cart.html">Корзина</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <h1>Каталог боксів</h1>
+        <p>Обирайте подарунки за тематикою або створіть власний бокс.</p>
+
+        <div class="filters">
+            <label>Фільтрувати за темою:</label>
+            <select id="themeFilter">
+                <option value="all">Всі бокси</option>
+                <option value="HarryPotter">Harry Potter</option>
+                <option value="StrangerThings">Stranger Things</option>
+                <option value="Friends">Friends</option>
+                <option value="Marvel">Marvel</option>
+                <option value="Disney">Disney</option>
+            </select>
+        </div>
+
+        <div class="products-grid" id="catalogGrid">
+            <!-- Продукти додаватимуться через JS або можна додати статично -->
+            <div class="product-card" data-theme="HarryPotter">
+                <img src="images/gift1.jpg" alt="Бокс Harry Potter">
+                <h3>Бокс «Harry Potter»</h3>
+                <p class="price">450 грн</p>
+                <a href="cart.html" class="btn">Додати до корзини</a>
+            </div>
+
+            <div class="product-card" data-theme="StrangerThings">
+                <img src="images/gift2.jpg" alt="Бокс Stranger Things">
+                <h3>Бокс «Stranger Things»</h3>
+                <p class="price">520 грн</p>
+                <a href="cart.html" class="btn">Додати до корзини</a>
+            </div>
+
+            <div class="product-card" data-theme="Friends">
+                <img src="images/gift3.jpg" alt="Бокс Friends">
+                <h3>Бокс «Friends»</h3>
+                <p class="price">610 грн</p>
+                <a href="cart.html" class="btn">Додати до корзини</a>
+            </div>
+
+            <div class="product-card" data-theme="Marvel">
+                <img src="images/gift4.jpg" alt="Бокс Marvel">
+                <h3>Бокс «Marvel»</h3>
+                <p class="price">480 грн</p>
+                <a href="cart.html" class="btn">Додати до корзини</a>
+            </div>
+
+            <div class="product-card" data-theme="Disney">
+                <img src="images/gift5.jpg" alt="Бокс Disney">
+                <h3>Бокс «Disney»</h3>
+                <p class="price">500 грн</p>
+                <a href="cart.html" class="btn">Додати до корзини</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>Surprise Me © 2025 | Створено Глуханько Є. та Гоголою В.</p>
+</footer>
+
+<script>
+    // JS для фільтрації по темі
+    const filterSelect = document.getElementById('themeFilter');
+    const catalogGrid = document.getElementById('catalogGrid');
+    const products = catalogGrid.querySelectorAll('.product-card');
+
+    filterSelect.addEventListener('change', () => {
+        const theme = filterSelect.value;
+        products.forEach(product => {
+            if (theme === 'all' || product.dataset.theme === theme) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+<script src="js/script.js"></script>
+</body>
+</html>

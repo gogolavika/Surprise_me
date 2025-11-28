@@ -2,23 +2,38 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Контакти — Surprise Me</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <header>
-    <div class="container">
+    <div class="container header-container">
         <a href="index.html" class="logo">Surprise Me!</a>
-
         <nav>
-            <ul>
-                <li><a href="index.html">Головна</a></li>
-                <li><a href="products.html">Товари</a></li>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Каталог боксів▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="catalog.html?theme=HarryPotter">Harry Potter</a></li>
+                        <li><a href="catalog.html?theme=StrangerThings">Stranger Things</a></li>
+                        <li><a href="catalog.html?theme=Friends">Friends</a></li>
+                        <li><a href="catalog.html?theme=Marvel">Marvel</a></li>
+                        <li><a href="catalog.html?theme=Disney">Disney</a></li>
+                        <li><a href="catalog.html">Всі бокси</a></li>
+                    </ul>
+                </li>
+                <li><a href="build.html">Зібрати свій бокс</a></li>
+                <li><a href="delivery.html">Доставка та оплата</a></li>
                 <li><a href="about.html">Про нас</a></li>
                 <li><a href="contact.html">Контакти</a></li>
                 <li><a href="cart.html">Корзина</a></li>
             </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
         </nav>
     </div>
 </header>
@@ -28,29 +43,30 @@
         <h1>Зв’язатися з нами</h1>
         <p>Заповніть форму нижче, і ми відповімо якнайшвидше!</p>
 
-        <form action="#" method="post" style="margin-top:20px;">
+        <form action="#" method="post" class="contact-form">
             <label>Ваше ім’я:<br>
                 <input type="text" name="name" required>
             </label>
-            <br><br>
-
+            <br>
             <label>Електронна пошта:<br>
                 <input type="email" name="email" required>
             </label>
-            <br><br>
-
+            <br>
             <label>Повідомлення:<br>
                 <textarea name="message" rows="4" required></textarea>
             </label>
-            <br><br>
-
+            <br>
             <button class="btn" type="submit">Відправити</button>
         </form>
     </div>
 </main>
+
 <footer>
     <p>Surprise Me © 2025 | Створено Глуханько Є. та Гоголою В.</p>
 </footer>
+
+<script src="js/script.js"></script>
 </body>
 </html>
+
 

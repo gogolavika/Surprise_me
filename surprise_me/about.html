@@ -2,23 +2,38 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Про нас — Surprise Me</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <header>
-    <div class="container">
+    <div class="container header-container">
         <a href="index.html" class="logo">Surprise Me!</a>
-
         <nav>
-            <ul>
-                <li><a href="index.html">Головна</a></li>
-                <li><a href="products.html">Товари</a></li>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Каталог боксів▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="catalog.html?theme=HarryPotter">Harry Potter</a></li>
+                        <li><a href="catalog.html?theme=StrangerThings">Stranger Things</a></li>
+                        <li><a href="catalog.html?theme=Friends">Friends</a></li>
+                        <li><a href="catalog.html?theme=Marvel">Marvel</a></li>
+                        <li><a href="catalog.html?theme=Disney">Disney</a></li>
+                        <li><a href="catalog.html">Всі бокси</a></li>
+                    </ul>
+                </li>
+                <li><a href="build.html">Зібрати свій бокс</a></li>
+                <li><a href="delivery.html">Доставка та оплата</a></li>
                 <li><a href="about.html">Про нас</a></li>
                 <li><a href="contact.html">Контакти</a></li>
                 <li><a href="cart.html">Корзина</a></li>
             </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
         </nav>
     </div>
 </header>
@@ -28,15 +43,18 @@
         <h1>Про наш проєкт</h1>
 
         <h2>Хто ми?</h2>
-        <p>Ми — студенти 3 курсу ФБМІ, які точно будуть ходити на пари 😊</p>
+        <p>Ми — студенти 3 курсу ФБМІ, які створюють сучасний сервіс для подарункових боксів і навчаємось веброзробці.</p>
+
+        <h2>Місія</h2>
+        <p>Зробити процес вибору подарунку легким, приємним та особливим для кожного користувача.</p>
 
         <h3>Що ми робимо?</h3>
-        <ol>
+        <ul>
             <li>Створюємо сучасний сайт</li>
-            <li>Навчаємось HTML, CSS, JS</li>
-            <li>Сподіваємось закрити сесію без проблем</li>
-            <li>І працюємо над красивими вебпроектами</li>
-        </ol>
+            <li>Навчаємось HTML, CSS та JS</li>
+            <li>Розробляємо інтерактивний каталог та кошик</li>
+            <li>Дбаємо про гарний дизайн і зручність користування</li>
+        </ul>
     </div>
 </main>
 
@@ -44,6 +62,7 @@
     <p>Surprise Me © 2025 | Створено Глуханько Є. та Гоголою В.</p>
 </footer>
 
+<script src="js/script.js"></script>
 </body>
 </html>
 
