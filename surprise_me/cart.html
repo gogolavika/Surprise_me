@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Корзина — Surprise Me</title>
     <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/script.js"></script>
 </head>
 <body>
 <header>
@@ -13,26 +14,24 @@
         <nav>
             <ul class="nav-links">
                 <li class="dropdown">
-                    <a href="#">Каталог боксів▾</a>
+                    <a href="catalog.html">Каталог боксів▾</a>
                     <ul class="dropdown-content">
-                        <li><a href="catalog.html?theme=HarryPotter">Harry Potter</a></li>
-                        <li><a href="catalog.html?theme=StrangerThings">Stranger Things</a></li>
+                        <li><a href="catalog.html?theme=Harry+Potter">Harry Potter</a></li>
+                        <li><a href="catalog.html?theme=Stranger+Things">Stranger Things</a></li>
                         <li><a href="catalog.html?theme=Friends">Friends</a></li>
                         <li><a href="catalog.html?theme=Marvel">Marvel</a></li>
-                        <li><a href="catalog.html?theme=Disney">Disney</a></li>
                         <li><a href="catalog.html">Всі бокси</a></li>
                     </ul>
                 </li>
-                <li><a href="build.html">Зібрати свій бокс</a></li>
+                <li><a href="custom-box.html">Зібрати свій бокс</a></li>
                 <li><a href="delivery.html">Доставка та оплата</a></li>
                 <li><a href="about.html">Про нас</a></li>
                 <li><a href="contact.html">Контакти</a></li>
                 <li><a href="cart.html">Корзина</a></li>
             </ul>
-            <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
+
+            <div class="burger" aria-label="menu" role="button">
+                <div></div><div></div><div></div>
             </div>
         </nav>
     </div>
@@ -43,35 +42,20 @@
         <h1>Ваша корзина</h1>
 
         <div class="cart-items">
-            <div class="cart-item">
-                <img src="images/gift1.jpg" alt="Бокс Harry Potter">
-                <div class="item-info">
-                    <h3>Бокс «Harry Potter»</h3>
-                    <p>Ціна: 450 грн</p>
-                    <div class="quantity-control">
-                        <button class="decrease">-</button>
-                        <span class="quantity">1</span>
-                        <button class="increase">+</button>
-                    </div>
-                    <button class="remove-btn">Видалити</button>
-                </div>
-            </div>
         </div>
 
-        <div class="cart-total">
-            <p><strong>Сума замовлення:</strong> <span id="total-price">450</span> грн</p>
+        <div class="cart-total" style="margin-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <p style="margin:0;"><strong>Сума замовлення:</strong> <span id="total-price">0</span> грн</p>
             <a href="#" class="btn checkout-btn">Оформити замовлення</a>
         </div>
     </div>
 
-    <div class="notification" id="notification">Бокс додано до корзини!</div>
+    <div id="notification" class="hidden">Бокс додано до корзини!</div>
 </main>
 
 <footer>
     <p>Surprise Me © 2025 | Створено Глуханько Є. та Гоголою В.</p>
 </footer>
-
-<script src="js/cart.js"></script>
-<script src="js/script.js"></script>
 </body>
 </html>
+

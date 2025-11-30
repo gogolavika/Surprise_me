@@ -8,29 +8,30 @@
 </head>
 <body>
 <header>
-    <div class="container">
+    <div class="container header-container">
         <a href="index.html" class="logo">Surprise Me!</a>
         <nav>
             <ul>
                 <li><a href="index.html">Головна</a></li>
                 <li class="dropdown">
-                    <a href="#">Каталог боксів ▾</a>
+                    <a href="catalog.html">Каталог боксів ▾</a>
                     <ul class="dropdown-content">
                         <li><a href="catalog.html?theme=Harry+Potter">Harry Potter</a></li>
                         <li><a href="catalog.html?theme=Stranger+Things">Stranger Things</a></li>
                         <li><a href="catalog.html?theme=Friends">Friends</a></li>
+                        <li><a href="catalog.html?theme=Marvel">Marvel</a></li>
+                        <li><a href="catalog.html">Всі бокси</a></li>
                     </ul>
                 </li>
-                <li><a href="build.html">Зібрати свій бокс</a></li>
+                <li><a href="custom-box.html">Зібрати свій бокс</a></li>
                 <li><a href="delivery.html">Доставка та оплата</a></li>
                 <li><a href="about.html">Про нас</a></li>
                 <li><a href="contact.html">Контакти</a></li>
                 <li><a href="cart.html">Корзина</a></li>
             </ul>
-            <div class="burger">
-                <div></div>
-                <div></div>
-                <div></div>
+
+            <div class="burger" aria-label="menu" role="button">
+                <div></div><div></div><div></div>
             </div>
         </nav>
     </div>
@@ -39,9 +40,9 @@
 <main>
     <div class="container">
         <h1>Каталог подарункових боксів</h1>
-        <p>Оберіть тему боксу або натисніть на картинку для детальної інформації:</p>
+        <p>Оберіть тему або натисніть «Детальніше» щоб побачити повну інформацію. Також ви можете одразу додати бокс до корзини.</p>
 
-        <div class="products-grid" id="catalog-grid">
+        <div class="products-grid" id="catalog-grid" aria-live="polite">
         </div>
     </div>
 </main>
@@ -51,3 +52,4 @@
 </footer>
 </body>
 </html>
+
