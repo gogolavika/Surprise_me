@@ -133,11 +133,29 @@ function removeFromCart(boxId){
     if (typeof renderCartPage === 'function') renderCartPage();
 }
 
+function normalizeThemeKey(s){
+    if (!s) return '';
+    return String(s).toLowerCase().replace(/\s+/g, '');
+}
+
 function renderCatalog(theme = null){
     const grid = document.getElementById('catalog-grid');
     if (!grid) return;
     grid.innerHTML = '';
-    const filtered = theme ? boxes.filter(b => b.theme === theme) : boxes;
+
+    const params = new URLSearchParams(window.location.search);
+    let themeParam = theme || params.get('theme') || null;
+
+    if (typeof themeParam === 'string') {
+        themeParam = decodeURIComponent(themeParam.replace(/\+/g,' ')).trim();
+    }
+
+    const normalizedFilter = normalizeThemeKey(themeParam);
+
+    const filtered = normalizedFilter
+        ? boxes.filter(b => normalizeThemeKey(b.theme) === normalizedFilter)
+        : boxes;
+
     filtered.forEach(box => {
         const el = document.createElement('div');
         el.className = 'product-card linkable';
