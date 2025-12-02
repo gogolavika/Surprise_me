@@ -1,16 +1,26 @@
 const boxes = [
-    { id: 'hp-1', theme: 'Harry Potter', title: 'HP Box — Classic', price: 450, img: 'images/gift1.jpg', description: 'Класичний набір: кружка, значки, листівки.' },
-    { id: 'hp-2', theme: 'Harry Potter', title: 'HP Box — Premium', price: 680, img: 'images/gift1b.jpg', description: 'Преміум-набір з ексклюзивною упаковкою.' },
+    { id: 'hp-1', theme: 'Harry Potter', title: 'HP Box — Classic', price: 450, img: 'images/gift1.jpg', description: 'Класичний набір: кружка, значок, листівка з головними персонажами, незвичайні цукерки та смачні плитки шоколаду.' },
+    { id: 'hp-2', theme: 'Harry Potter', title: 'HP Box — Premium', price: 680, img: 'images/gift1b.jpg',   description: ['Преміум-набір з ексклюзивним упакуванням.',
+            'Створи своє диво дивовижною палочкою самого Гаррі Поттера. Неймовірні аксесуари: шапка, окуляри, краватка, лампові шкарпетки.',
+            'Дивовижна кружка та нотатник для твоїх магічних ідей.'
+        ]
+    },
 
-    { id: 'st-1', theme: 'Stranger Things', title: 'Stranger Box — Retro', price: 520, img: 'images/gift2.jpg', description: 'Футболка, наклейки, невеличка фігурка.' },
-    { id: 'st-2', theme: 'Stranger Things', title: 'Stranger Box — Collector', price: 760, img: 'images/gift2b.jpg', description: 'Краще для колекціонерів.' },
-    { id: 'st-3', theme: 'Stranger Things', title: 'Stranger Box — Sweet Pack', price: 490, img: 'images/gift2c.jpg', description: 'Солодощі + тематичні сувеніри.' },
 
-    { id: 'fr-1', theme: 'Friends', title: 'Friends Box — Coffee', price: 610, img: 'images/gift3.jpg', description: 'Кружка, постери, брелоки.' },
-    { id: 'fr-2', theme: 'Friends', title: 'Friends Box — Fan Pack', price: 720, img: 'images/gift3b.jpg', description: 'Розширений фан-набір.' },
+    { id: 'st-1', theme: 'Stranger Things', title: 'Stranger Box — Retro', price: 600, img: 'images/gift2c.jpg', description: '\n' +
+            'Набір складається з:\n' +
+            '1. Футболки, розмір на вибір.\n' +
+            '2. Магічною термо-чашки, на якій з\'являється зображення, як тільки в неї потрапляє гаряча вода. Обсяг - 350 мл.\n' +
+            '3.Дизайнерської листівки, в конверті.\n' +
+            '4. Подарункової коробки з декором у стилі ОСД.' },
+    { id: 'st-2', theme: 'Stranger Things', title: 'Stranger Box — Collector', price: 760, img: 'images/gift2b.jpg', description: 'Краще для колекціонерів. Неймовірні фігурки у всій кількості та готовий бокс.' },
+    { id: 'st-3', theme: 'Stranger Things', title: 'Stranger Box — Sweet Pack', price: 520, img: 'images/gift2.jpg', description: 'Солодощі + тематичні сувеніри. Неймовірні шкарпетки, наліпки, блокнот та значок.' },
 
-    { id: 'mv-1', theme: 'Marvel', title: 'Marvel Box — Hero', price: 700, img: 'images/gift4.jpg', description: 'Наклейки, фігурка, плакат.' },
-    { id: 'mv-2', theme: 'Marvel', title: 'Marvel Box — Legends', price: 950, img: 'images/gift4b.jpg', description: 'Ексклюзивні предмети для фанатів.' }
+    { id: 'fr-1', theme: 'Friends', title: 'Friends Box — Coffee', price: 610, img: 'images/gift3.jpg', description: 'У набір входять: кружка, блокнот Pivot Pivot, стікерпак, листівка, наліпки, запашна кава з кав\'ярні Central Park.' },
+    { id: 'fr-2', theme: 'Friends', title: 'Friends Box — Fan Pack', price: 720, img: 'images/gift3b.jpg', description: 'Розширений фан-набір. У набір входить: чашка, футболка, блокнот Pivot Pivot, крутий стікерпак, запашна кава з кав\'ярні Central Park, тарілка "Joey doesn\'t share food», пряник у вигляді індички, листівка в конверті.'},
+
+    { id: 'mv-1', theme: 'Marvel', title: 'Marvel Box — Hero', price: 650, img: 'images/gift4.jpg', description: 'Наклейки, фігурка, плакат.' },
+    { id: 'mv-2', theme: 'Marvel', title: 'Marvel Box — Legends', price: 720, img: 'images/gift4b.jpg', description: 'Ексклюзивні предмети для фанатів.' }
 ];
 
 const CART_KEY = 'sm_cart_v1';
@@ -160,32 +170,35 @@ function renderCatalog(theme = null){
         const el = document.createElement('div');
         el.className = 'product-card linkable';
         el.innerHTML = `
-      <img src="${box.img}" alt="${escapeHtml(box.title)}" loading="lazy">
-      <div style="padding:12px">
-        <h3 class="card-title">${escapeHtml(box.title)}</h3>
-        <p class="price">${box.price} грн</p>
-        <p style="font-size:13px;color:#666; min-height:36px">${escapeHtml(box.description)}</p>
-        <div class="card-actions">
-          <button class="btn details-btn" data-id="${box.id}">Детальніше</button>
-          <button class="btn add-btn" data-id="${box.id}">Додати до корзини</button>
-        </div>
-      </div>
-    `;
+          <img src="${box.img}" alt="${escapeHtml(box.title)}" loading="lazy">
+          <div style="padding:12px">
+            <h3 class="card-title">${escapeHtml(box.title)}</h3>
+            <p class="price">${box.price} грн</p>
+            <div class="box-description">${Array.isArray(box.description) ? box.description.join('<br>') : escapeHtml(box.description)}</div>
+            <div class="card-actions">
+              <button class="btn details-btn">Деталі</button>
+              <button class="btn add-btn" data-id="${box.id}">Додати до корзини</button>
+            </div>
+          </div>
+        `;
         grid.appendChild(el);
-    });
 
-    grid.querySelectorAll('.details-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const id = e.currentTarget.dataset.id;
-            localStorage.setItem(SELECTED_KEY, id);
-            window.location.href = 'product_detail.html';
+        const btn = el.querySelector('.details-btn');
+        const desc = el.querySelector('.box-description');
+        desc.style.display = 'none';
+
+        btn.addEventListener('click', () => {
+            if(desc.style.display === 'block'){
+                desc.style.display = 'none';
+                btn.textContent = 'Деталі';
+            } else {
+                desc.style.display = 'block';
+                btn.textContent = 'Сховати деталі';
+            }
         });
-    });
-    grid.querySelectorAll('.add-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const id = e.currentTarget.dataset.id;
-            addToCart(id, 1);
-        });
+
+        const addBtn = el.querySelector('.add-btn');
+        addBtn.addEventListener('click', () => addToCart(box.id, 1));
     });
 }
 

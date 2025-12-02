@@ -103,6 +103,13 @@ nav ul li a { padding:6px 10px; display:block; }
 .dropdown-content li { padding:8px 14px; white-space:nowrap; }
 .dropdown-content li a { color:var(--text); }
 
+.box-description {
+    display: none;
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+}
+
 .products-grid {
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

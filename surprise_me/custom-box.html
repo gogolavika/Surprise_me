@@ -22,7 +22,7 @@
                         <li><a href="catalog.html">Всі бокси</a></li>
                     </ul>
                 </li>
-                <li><a href="build.html">Зібрати свій бокс</a></li>
+                <li><a href="custom-box.html">Зібрати свій бокс</a></li>
                 <li><a href="delivery.html">Доставка та оплата</a></li>
                 <li><a href="about.html">Про нас</a></li>
                 <li><a href="contact.html">Контакти</a></li>
@@ -44,24 +44,15 @@
 
         <form class="build-box-form">
             <label>Обрати тематику:</label>
-            <select>
+            <select id="theme-select">
                 <option value="HarryPotter">Harry Potter</option>
                 <option value="StrangerThings">Stranger Things</option>
                 <option value="Friends">Friends</option>
                 <option value="Marvel">Marvel</option>
-                <option value="Disney">Disney</option>
             </select>
 
             <label>Додати товари до боксу:</label>
-            <div class="build-products">
-                <input type="checkbox" id="item1" value="Чашка Гаррі Поттер">
-                <label for="item1">Чашка Гаррі Поттер</label><br>
-
-                <input type="checkbox" id="item2" value="Наліпки">
-                <label for="item2">Наліпки</label><br>
-
-                <input type="checkbox" id="item3" value="Шоколад">
-                <label for="item3">Шоколад</label><br>
+            <div class="build-products" id="products-container">
             </div>
 
             <button type="submit" class="btn">Додати в корзину</button>
@@ -73,6 +64,65 @@
     <p>Surprise Me © 2025 | Створено Глуханько Є. та Гоголою В.</p>
 </footer>
 
-<script src="js/script.js"></script>
+<script>
+    const productsByTheme = {
+        HarryPotter: [
+            "Чашка Гаррі Поттер",
+            "Наліпки Hogwarts",
+            "Шоколад Bertie Bott's",
+            "Блокнот Гоґвортс"
+        ],
+        StrangerThings: [
+            "Футболка Hawkins",
+            "Постер Upside Down",
+            "Наліпки Демогоргон",
+            "Кружка Eggo"
+        ],
+        Friends: [
+            "Чашка Central Perk",
+            "Міні-фігурки героїв",
+            "Магніти з серіалу",
+            "Постер Friends"
+        ],
+        Marvel: [
+            "Фігурка героя",
+            "Футболка з логотипом",
+            "Брелок",
+            "Наліпки Marvel"
+        ]
+    };
+
+    const themeSelect = document.getElementById('theme-select');
+    const productsContainer = document.getElementById('products-container');
+
+    function renderProducts(theme) {
+        productsContainer.innerHTML = '';
+        if (!productsByTheme[theme]) return;
+
+        productsByTheme[theme].forEach((item, index) => {
+            const id = `item-${index}`;
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = id;
+            checkbox.value = item;
+
+            const label = document.createElement('label');
+            label.htmlFor = id;
+            label.textContent = item;
+
+            const br = document.createElement('br');
+
+            productsContainer.appendChild(checkbox);
+            productsContainer.appendChild(label);
+            productsContainer.appendChild(br);
+        });
+    }
+
+    renderProducts(themeSelect.value);
+
+    themeSelect.addEventListener('change', () => {
+        renderProducts(themeSelect.value);
+    });
+</script>
 </body>
 </html>
