@@ -1,0 +1,65 @@
+:root {
+    --brand:#6a4fb0;
+    --brand-dark:#4b2fae;
+    --text:#333;
+    --bg:#f9f7fd;
+    --card-bg:#fff;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    background-color: var(--bg);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color .3s ease;
+
+    animation: fadeInPage .25s ease both;
+}
+
+@keyframes fadeInPage {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1,h2,h3,h4 {
+    color: var(--brand);
+    font-weight: 600;
+    margin-bottom: 0.5em;
+}
+
+p, li {
+    font-size: 16px;
+    margin-bottom: 1em;
+}
+
+a {
+    color: var(--brand);
+    text-decoration: none;
+    transition: color .2s ease, transform .15s ease;
+}
+
+a:hover {
+    color: var(--brand-dark);
+    text-decoration: underline;
+    transform: translateY(-1px);
+}
+
+input, textarea, select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input:invalid, textarea:invalid {
+    border-color: red;
+}

@@ -44,17 +44,24 @@
 
         <form action="#" method="post" class="contact-form">
             <label>Ваше ім’я:<br>
-                <input type="text" name="name" required>
+                <input type="text" name="name" required minlength="2"
+                       pattern="[A-Za-zА-Яа-яІіЇїЄєҐґ\s]+"
+                       title="Ім’я має містити тільки літери та бути довшим за 2 символи">
             </label>
             <br>
+
             <label>Електронна пошта:<br>
-                <input type="email" name="email" required>
+                <input type="email" name="email" required
+                       title="Введіть коректну електронну адресу">
             </label>
             <br>
+
             <label>Повідомлення:<br>
-                <textarea name="message" rows="4" required></textarea>
+                <textarea name="message" rows="4" required minlength="10"
+                          title="Повідомлення має бути не менше 10 символів"></textarea>
             </label>
             <br>
+
             <button class="btn" type="submit">Відправити</button>
         </form>
     </div>
@@ -67,5 +74,3 @@
 <script src="js/script.js"></script>
 </body>
 </html>
-
-
