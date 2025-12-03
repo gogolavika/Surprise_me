@@ -40,3 +40,28 @@
     font-size: 18px;
     border-radius: 8px;
 }
+
+/* Стилі для корзини */
+.cart-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+}
+
+.cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cart-item .quantity-control {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}

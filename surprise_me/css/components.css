@@ -59,6 +59,7 @@ button:hover, .btn:hover {
     padding-bottom: 14px;
     transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease;
     cursor: default;
+    position: relative;
 }
 
 .product-card:hover {
@@ -76,7 +77,10 @@ button:hover, .btn:hover {
 
 .product-card:hover img { transform: scale(1.04); }
 
-.card-actions {
+/* Зміни для кнопок у картках */
+.product-card .card-actions {
+    position: relative;
+    z-index: 2; /* вище за псевдоелемент ::after */
     display: flex;
     gap: 8px;
     justify-content: center;
@@ -84,27 +88,34 @@ button:hover, .btn:hover {
     padding: 0 12px;
 }
 
-.price {
-    font-weight: 700;
-    margin: 10px 0;
-    color: #222;
+.linkable {
+    position: relative;
+    overflow: hidden;
+    transition: transform .22s ease, box-shadow .22s ease;
 }
 
-.product-detail {
-    display: flex;
-    gap: 24px;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    margin-top: 20px;
+.linkable:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 34px rgba(56,45,102,0.06);
 }
 
-.product-detail img {
-    max-width: 420px;
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 12px 30px rgba(80,60,120,0.05);
+.linkable::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity .22s ease, transform .22s ease;
+    pointer-events: none; /* важливо, щоб кнопки були клікабельні */
 }
 
+.linkable:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Toast повідомлення */
 .cart-message {
     position: fixed;
     top: 22px;
@@ -117,7 +128,7 @@ button:hover, .btn:hover {
     display: flex;
     gap: 12px;
     align-items: center;
-    z-index: 2000;
+    z-index: 9999;
     transform: translateY(-8px);
     opacity: 0;
     pointer-events: none;
@@ -151,24 +162,3 @@ button:hover, .btn:hover {
 
 .hidden { display: none !important; }
 .clickable { cursor: pointer; }
-.linkable { position: relative; overflow: hidden; transition: transform .22s ease, box-shadow .22s ease; }
-
-.linkable:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 34px rgba(56,45,102,0.06);
-}
-
-.linkable::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity .22s ease, transform .22s ease;
-}
-
-.linkable:hover::after {
-    opacity: 1;
-    transform: translateY(0);
-}
