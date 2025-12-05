@@ -376,26 +376,49 @@ function escapeHtml(s){
     });
 }
 
-document.addEventListener('DOMContentLoaded', ()=> {
+document.addEventListener('DOMContentLoaded', () => {
     wireHeaderMenu();
-
     if (q('#catalog-grid')) {
         const params = new URLSearchParams(window.location.search);
         const themeParam = params.get('theme');
         const theme = themeParam ? themeParam.replace(/\+/g, ' ') : null;
         renderCatalog(theme);
-    }
 
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            card.style.backgroundColor = '#f0f8ff';
+            card.style.borderRadius = '8px';
+            card.style.padding = '10px';
+            card.style.transition = 'transform 0.2s ease';
+            card.addEventListener('mouseenter', () => card.style.transform = 'scale(1.03)');
+            card.addEventListener('mouseleave', () => card.style.transform = 'scale(1)');
+        });
+    }
     if (q('#product-title')) {
         renderProductDetail();
     }
-
     if (q('#total-price')) {
         renderCartPage();
     }
 
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+        const placeholder = document.querySelector('#welcome-placeholder');
+
+        if (placeholder) {
+            placeholder.innerHTML = `
+            <div class="welcome-block">
+                <h1 class="welcome-title">Ласкаво просимо до Surprise Me!</h1>
+                <p class="welcome-desc">
+                    Ми створюємо унікальні подарункові бокси з атмосферою улюблених всесвітів.
+                    Обирай тематику, переглядай набори та створюй свої ідеальні подарунки!
+                </p>
+            </div>
+        `;
+        }
+    }
+
     qa('[data-add-id]').forEach(el => {
-        el.addEventListener('click', ()=>{
+        el.addEventListener('click', () => {
             const id = el.dataset.addId;
             const qty = Number(el.dataset.addQty || 1);
             addToCart(id, qty);
@@ -404,15 +427,38 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     const logo = q('.logo');
     if (logo){
-        logo.addEventListener('click', (e)=>{
+        logo.addEventListener('click', (e) => {
             e.preventDefault();
             window.location.href = 'index.html';
         });
     }
 
+    const footerDateEl = document.querySelector('#footer-date');
+    if (footerDateEl) {
+        const now = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        footerDateEl.textContent = now.toLocaleDateString('uk-UA', options);
+    }
+
+    const toggleButtons = document.querySelectorAll('.show-more-btn');
+    toggleButtons.forEach(btn => {
+        const content = btn.nextElementSibling;
+        if (content) content.style.display = 'none';
+
+        btn.addEventListener('click', () => {
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                btn.textContent = 'Сховати';
+            } else {
+                content.style.display = 'none';
+                btn.textContent = 'Показати більше';
+            }
+        });
+    });
+
     ensureToast();
 
-    document.addEventListener('keydown', (e)=>{
+    document.addEventListener('keydown', (e) => {
         if (e.key === 'c' && (e.ctrlKey || e.metaKey)) {
             window.location.href = 'cart.html';
         }

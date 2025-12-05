@@ -5,18 +5,118 @@
     <title>Surprise Me — Головна</title>
     <link rel="stylesheet" href="css/style.css">
     <script defer src="js/script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ccccff;
+        }
+
         .banner-section {
             background-color: #ccccff;
             padding: 40px 0;
         }
-
         .main-banner {
             text-align: center;
         }
         .main-banner img {
-            max-width: 50%;
+            max-width: 40%;
             height: auto;
+        }
+
+        #welcome-placeholder {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .welcome-block {
+            max-width: 700px;
+            text-align: center;
+            background: linear-gradient(135deg, #c49bff, #e5d6ff, #d0b3ff);
+            padding: 25px 40px;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(80, 0, 150, 0.25);
+            animation: fadeInUp 1s ease forwards;
+            transform: translateY(20px);
+        }
+
+        .welcome-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 42px;
+            color: #4b1fa3;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            text-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .welcome-desc {
+            font-size: 18px;
+            font-weight: 500;
+            color: #4a3c88;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        #main-content h2 {
+            text-align: center;
+            font-size: 38px;
+            color: #4b1fa3;
+            font-family: 'Pacifico', cursive;
+            letter-spacing: 1px;
+            margin: 40px 0 20px 0;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+        }
+
+        #about-section {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        #about-section h2 {
+            text-align: center;
+            font-size: 36px;
+            color: #4b1fa3;
+            font-family: 'Pacifico', cursive;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+        }
+
+        #about-section p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .show-more-btn {
+            background: linear-gradient(135deg, #6a4fb0, #4b2fae);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .show-more-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .more-content {
+            display: none;
+            max-width: 700px;
+            margin: 15px auto 0 auto;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+            text-align: left;
         }
     </style>
 </head>
@@ -43,7 +143,6 @@
                 <li><a href="contact.html">Контакти</a></li>
                 <li><a href="cart.html">Корзина</a></li>
             </ul>
-
             <div class="burger" aria-label="menu" role="button">
                 <div></div><div></div><div></div>
             </div>
@@ -60,10 +159,18 @@
         </div>
     </div>
 
-    <div class="container">
-        <h1>Ласкаво просимо до Surprise Me!</h1>
-        <p>На нашому сайті ви знайдете унікальні подарункові бокси на будь-який смак та стиль.</p>
+    <div id="welcome-placeholder">
+        <div class="welcome-block">
+            <h1 class="welcome-title">Ласкаво просимо до Surprise Me!</h1>
+            <p class="welcome-desc">
+                Тут створюються подарунки, що запам’ятовуються.<br>
+                Обирайте тему, відкривайте для себе наші бокси або<br>
+                створіть власний унікальний подарунок!
+            </p>
+        </div>
+    </div>
 
+    <div class="container" id="main-content">
         <h2>Хіти продажу</h2>
         <div class="products-grid" id="home-grid">
             <div class="product-card">
@@ -86,11 +193,26 @@
                 </div>
             </div>
         </div>
+
+        <section id="about-section">
+            <h2>Цікаве про наш сайт</h2>
+            <p>Короткий опис компанії завжди видно.</p>
+            <button class="show-more-btn">Показати більше</button>
+            <div class="more-content">
+                <p>
+                    Наш сайт <strong>Surprise Me!</strong> створений для справжніх поціновувачів незвичайних подарунків та тематичних боксових наборів.
+                    Кожен бокс ретельно підібраний відповідно до популярних серіалів та франшиз, таких як <em>Harry Potter</em>, <em>Stranger Things</em>, <em>Friends</em> та <em>Marvel</em>.
+                    За допомогою JavaScript ми реалізували динамічне відображення продукції, систему корзини, підсвітку при наведенні, кнопки «Показати більше» для додаткового контенту, а також автоматичне відображення поточної дати у футері.
+                    Ваша взаємодія з сайтом стає максимально інтерактивною та зручною – все на стороні клієнта без зайвих перезавантажень сторінки.
+                </p>
+            </div>
+        </section>
     </div>
 </main>
 
 <footer>
     <p>Surprise Me © 2025 | Створено Глуханько Є. та Гоголою В.</p>
+    <p>Сьогодні: <span id="footer-date"></span></p>
 </footer>
 </body>
 </html>
