@@ -206,3 +206,82 @@ button:hover, .btn:hover {
         transform: translateY(0);
     }
 }
+
+/* Стилі для бульбашки кошика (скільки об'єктів в кошику') */
+.cart-badge
+{
+    display: none;
+
+    min-width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #ff3860;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0 5px;
+
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    z-index: 1000;
+}
+
+/* Стилі для темної теми */
+
+body.dark-mode button,
+body.dark-mode .btn {
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .welcome-block {
+    background: linear-gradient(135deg, #4d2699, #6633cc, #4d2699);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .welcome-title {
+    color: #e5d6ff;
+}
+
+body.dark-mode .welcome-desc {
+    color: #c49bff;
+}
+
+body.dark-mode .cart-message {
+    background: var(--brand-dark);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+}
+
+body.dark-mode {
+    background-color: #1f1f2b;
+    color: #e0e0e0;
+}
+
+/* текст */
+body.dark-mode p,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode li,
+body.dark-mode label {
+    color: #e0e0e0;
+}
+
+/* контейнер */
+body.dark-mode .container {
+    background-color: transparent;
+}
+
+/*читабельний каталог у темній темі*/
+
+body.dark-mode .product-card {
+    background: #1e1e2e;
+    opacity: 1 !important;
+}
+
+body.dark-mode .product-card * {
+    color: #00000e !important;
+    opacity: 1 !important;
+}

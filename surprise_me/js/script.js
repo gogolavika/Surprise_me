@@ -25,6 +25,8 @@ const boxes = [
 
 const CART_KEY = 'sm_cart_v1';
 const SELECTED_KEY = 'selectedBoxId';
+const THEME_KEY = 'siteTheme';
+const USER_NAME_KEY = 'lastUserName';
 
 function q(sel){ return document.querySelector(sel); }
 function qa(sel){ return Array.from(document.querySelectorAll(sel)); }
@@ -134,6 +136,8 @@ function addToCart(boxId, qty = 1){
     saveCart(cart);
     showToast(`${box.title} додано в корзину (${qty} шт.)`);
     if (typeof renderCartPage === 'function') renderCartPage();
+
+    updateCartBadge();
 }
 
 function removeFromCart(boxId){
@@ -141,6 +145,8 @@ function removeFromCart(boxId){
     cart = cart.filter(i => i.id !== boxId);
     saveCart(cart);
     if (typeof renderCartPage === 'function') renderCartPage();
+
+    updateCartBadge();
 }
 
 function normalizeThemeKey(s){
@@ -170,16 +176,16 @@ function renderCatalog(theme = null){
         const el = document.createElement('div');
         el.className = 'product-card linkable';
         el.innerHTML = `
-          <img src="${box.img}" alt="${escapeHtml(box.title)}" loading="lazy">
-          <div style="padding:12px">
-            <h3 class="card-title">${escapeHtml(box.title)}</h3>
-            <p class="price">${box.price} грн</p>
-            <div class="box-description">${Array.isArray(box.description) ? box.description.join('<br>') : escapeHtml(box.description)}</div>
-            <div class="card-actions">
-              <button class="btn details-btn">Деталі</button>
-              <button class="btn add-btn" data-id="${box.id}">Додати до корзини</button>
-            </div>
-          </div>
+             <img src="${box.img}" alt="${escapeHtml(box.title)}" loading="lazy">
+             <div style="padding:12px">
+               <h3 class="card-title">${escapeHtml(box.title)}</h3>
+               <p class="price">${box.price} грн</p>
+               <div class="box-description">${Array.isArray(box.description) ? box.description.join('<br>') : escapeHtml(box.description)}</div>
+               <div class="card-actions">
+                 <button class="btn details-btn">Деталі</button>
+                 <button class="btn add-btn" data-id="${box.id}">Додати до корзини</button>
+               </div>
+             </div>
         `;
         grid.appendChild(el);
 
@@ -297,6 +303,8 @@ function renderCartPage(){
             window.location.href = 'product_detail.html';
         });
     });
+
+    updateCartBadge();
 }
 
 function modifyCartQty(id, delta){
@@ -376,17 +384,241 @@ function escapeHtml(s){
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// --- Бульбашка кошика (скільки об'єктів в кошику)')
+
+function getCartTotalQuantity()
+{
+    const cart = loadCart();
+    return cart.reduce((total, item) => total + (item.qty || 1), 0);
+}
+
+function updateCartBadge()
+{
+    // Шукаємо посилання на корзину
+    const cartLink = document.querySelector('a[href="cart.html"]');
+    if (!cartLink) return;
+
+    let badge = document.getElementById('cart-count-badge');
+    const totalQty = getCartTotalQuantity();
+
+    badge.textContent = totalQty;
+
+    if (totalQty > 0)
+    {
+        badge.style.display = 'inline-block';
+    } else
+    {
+        badge.style.display = 'none';
+    }
+}
+
+
+// --- Зміна теми та Підсвітка меню ---
+
+const body = document.body;
+
+function applyTheme(theme)
+{
+    if (theme === 'dark')
+    {
+        document.body.classList.add('dark-mode');
+        const btn = document.getElementById('theme-toggle');
+        if (btn) btn.innerHTML = '🌙';
+    }
+    else
+    {
+        document.body.classList.remove('dark-mode');
+        const btn = document.getElementById('theme-toggle');
+        if (btn) btn.innerHTML = '☀️';
+    }
+}
+
+function initializeThemeToggle()
+{
+    const headerContainer = document.querySelector('.header-container');
+    if (!headerContainer) return;
+
+    if (document.getElementById('theme-toggle')) return;
+
+    const themeToggleBtn = document.createElement('button');
+    themeToggleBtn.id = 'theme-toggle';
+    themeToggleBtn.type = 'button';
+    themeToggleBtn.setAttribute('aria-label', 'Змінити тему');
+
+    headerContainer.insertBefore(themeToggleBtn, headerContainer.firstChild);
+
+    const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
+    applyTheme(savedTheme);
+
+    themeToggleBtn.addEventListener('click', () =>
+    {
+        const isDark = document.body.classList.contains('dark-mode');
+        const newTheme = isDark ? 'light' : 'dark';
+
+        applyTheme(newTheme);
+        localStorage.setItem(THEME_KEY, newTheme);
+    });
+}
+
+let themeInitTries = 0;
+const themeInitInterval = setInterval(() =>
+{
+    if (document.querySelector('.header-container'))
+    {
+        initializeThemeToggle();
+        clearInterval(themeInitInterval);
+    }
+
+    themeInitTries++;
+    if (themeInitTries > 10) clearInterval(themeInitInterval);
+}, 100);
+
+function wireNavHoverEffect()
+{
+    // Підсвітка меню при наведенні
+    const navLinks = document.querySelectorAll('nav .nav-links a');
+
+    navLinks.forEach(link =>
+    {
+        // При наведенні миші
+        link.addEventListener('mouseenter', () =>
+        {
+            link.classList.add('nav-hover');
+        });
+
+        // При відведенні миші
+        link.addEventListener('mouseleave', () =>
+        {
+            link.classList.remove('nav-hover');
+        });
+    });
+}
+
+
+// Валідація форми
+
+function displayError(inputElement, message)
+{
+    const label = inputElement.closest('label');
+    inputElement.classList.add('input-error');
+
+    let errorDiv = label.querySelector('.error-message');
+    if (!errorDiv)
+    {
+        errorDiv = document.createElement('div');
+        errorDiv.classList.add('error-message');
+        label.appendChild(errorDiv);
+    }
+    errorDiv.textContent = message;
+}
+
+function clearError(inputElement)
+{
+    const label = inputElement.closest('label');
+    inputElement.classList.remove('input-error');
+    const errorDiv = label.querySelector('.error-message');
+    if (errorDiv)
+    {
+        errorDiv.remove();
+    }
+}
+
+function wireContactForm()
+{
+    const contactForm = document.querySelector('.contact-form');
+    if (!contactForm) return;
+
+    const formMessageBlock = document.createElement('div');
+    formMessageBlock.id = 'form-message';
+    formMessageBlock.style.marginTop = '20px';
+    contactForm.insertAdjacentElement('afterend', formMessageBlock);
+
+    contactForm.addEventListener('submit', (event) =>
+    {
+        // Заборонити стандартну відправку
+        event.preventDefault();
+
+        const nameInput = contactForm.elements.name;
+        const emailInput = contactForm.elements.email;
+        const messageInput = contactForm.elements.message;
+
+        let isValid = true;
+
+        // Очистити попередні повідомлення та помилки
+        clearError(nameInput);
+        clearError(emailInput);
+        clearError(messageInput);
+        formMessageBlock.textContent = '';
+        formMessageBlock.style.cssText = 'margin-top: 20px;';
+
+        // Власна логіка перевірок на JavaScript
+
+        // Перевірка імені: мінімум 3 символи
+        if (nameInput.value.trim().length < 3)
+        {
+            displayError(nameInput, 'Ім’я має містити мінімум 3 символи.');
+            isValid = false;
+        }
+
+        // Перевірка Email: містить @ і домен
+        if (!/^\S+@\S+\.\S+$/.test(emailInput.value.trim()))
+        {
+            displayError(emailInput, 'Будь ласка, введіть коректну електронну адресу (приклад: user@domain.com).');
+            isValid = false;
+        }
+
+        // Перевірка Повідомлення: довжина ≥ 10 символів
+        if (messageInput.value.trim().length < 10)
+        {
+            displayError(messageInput, 'Повідомлення має містити мінімум 10 символів.');
+            isValid = false;
+        }
+
+
+        // Обробка результату
+        if (isValid)
+        {
+            // Вивести дані в консоль
+            console.log('Форма успішно надіслана. Дані:',
+                {
+                    name: nameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    message: messageInput.value.trim()
+                });
+
+            // Зберегти ім'я користувача
+            localStorage.setItem(USER_NAME_KEY, nameInput.value.trim());
+
+            // Очистити форму
+            contactForm.reset();
+
+            // Показати повідомлення про успіх
+            formMessageBlock.textContent = "Форма успішно надіслана! Дякуємо за ваше звернення.";
+            formMessageBlock.style.cssText = "padding: 15px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px; margin-top: 20px; text-align: center; font-weight: bold;";
+
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () =>
+{
+    initializeThemeToggle();
+    updateCartBadge();
+    wireNavHoverEffect();
+    wireContactForm();
+
     wireHeaderMenu();
-    if (q('#catalog-grid')) {
+    if (q('#catalog-grid'))
+    {
         const params = new URLSearchParams(window.location.search);
         const themeParam = params.get('theme');
         const theme = themeParam ? themeParam.replace(/\+/g, ' ') : null;
         renderCatalog(theme);
 
         const productCards = document.querySelectorAll('.product-card');
-        productCards.forEach(card => {
-            card.style.backgroundColor = '#f0f8ff';
+        productCards.forEach(card =>
+        {
+            card.style.backgroundColor = 'var(--card-bg)';
             card.style.borderRadius = '8px';
             card.style.padding = '10px';
             card.style.transition = 'transform 0.2s ease';
@@ -394,31 +626,39 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('mouseleave', () => card.style.transform = 'scale(1)');
         });
     }
-    if (q('#product-title')) {
+    if (q('#product-title'))
+    {
         renderProductDetail();
     }
-    if (q('#total-price')) {
+    if (q('#total-price'))
+    {
         renderCartPage();
     }
 
-    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/')
+    {
         const placeholder = document.querySelector('#welcome-placeholder');
+        const savedName = localStorage.getItem(USER_NAME_KEY);
+        const welcomeMessage = savedName ? `Знову вітаємо, ${savedName}!` : `Ласкаво просимо до Surprise Me!`;
 
-        if (placeholder) {
+        if (placeholder)
+        {
             placeholder.innerHTML = `
-            <div class="welcome-block">
-                <h1 class="welcome-title">Ласкаво просимо до Surprise Me!</h1>
-                <p class="welcome-desc">
-                    Ми створюємо унікальні подарункові бокси з атмосферою улюблених всесвітів.
-                    Обирай тематику, переглядай набори та створюй свої ідеальні подарунки!
-                </p>
-            </div>
-        `;
+             <div class="welcome-block">
+                 <h1 class="welcome-title">${welcomeMessage}</h1>
+                 <p class="welcome-desc">
+                     Ми створюємо унікальні подарункові бокси з атмосферою улюблених всесвітів.
+                     Обирай тематику, переглядай набори та створюй свої ідеальні подарунки!
+                 </p>
+             </div>
+         `;
         }
     }
 
-    qa('[data-add-id]').forEach(el => {
-        el.addEventListener('click', () => {
+    qa('[data-add-id]').forEach(el =>
+    {
+        el.addEventListener('click', () =>
+        {
             const id = el.dataset.addId;
             const qty = Number(el.dataset.addQty || 1);
             addToCart(id, qty);
@@ -426,30 +666,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const logo = q('.logo');
-    if (logo){
-        logo.addEventListener('click', (e) => {
+    if (logo)
+    {
+        logo.addEventListener('click', (e) =>
+        {
             e.preventDefault();
             window.location.href = 'index.html';
         });
     }
 
     const footerDateEl = document.querySelector('#footer-date');
-    if (footerDateEl) {
+    if (footerDateEl)
+    {
         const now = new Date();
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         footerDateEl.textContent = now.toLocaleDateString('uk-UA', options);
     }
 
     const toggleButtons = document.querySelectorAll('.show-more-btn');
-    toggleButtons.forEach(btn => {
+    toggleButtons.forEach(btn =>
+    {
         const content = btn.nextElementSibling;
         if (content) content.style.display = 'none';
 
-        btn.addEventListener('click', () => {
-            if (content.style.display === 'none') {
+        btn.addEventListener('click', () =>
+        {
+            if (content.style.display === 'none')
+            {
                 content.style.display = 'block';
                 btn.textContent = 'Сховати';
-            } else {
+            } else
+            {
                 content.style.display = 'none';
                 btn.textContent = 'Показати більше';
             }
@@ -458,20 +705,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ensureToast();
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'c' && (e.ctrlKey || e.metaKey)) {
+    // Зміна розміру шрифту
+    document.addEventListener('keydown', (e) =>
+    {
+        if (e.key === 'c' && (e.ctrlKey || e.metaKey))
+        {
             window.location.href = 'cart.html';
+            return;
+        }
+
+        const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+        let newSize = currentSize;
+
+        if (e.key === 'ArrowUp')
+        {
+            newSize = currentSize + 1;
+            e.preventDefault();
+        } else if (e.key === 'ArrowDown')
+        {
+            newSize = Math.max(8, currentSize - 1);
+            e.preventDefault();
+        }
+
+        if (newSize !== currentSize)
+        {
+            document.body.style.fontSize = `${newSize}px`;
         }
     });
 });
 
-window.sm = {
-    boxes,
-    addToCart,
-    loadCart,
-    saveCart,
-    renderCatalog,
-    renderCartPage,
-    renderProductDetail,
-    showToast
-};
+window.sm =
+    {
+        boxes,
+        addToCart,
+        loadCart,
+        saveCart,
+        renderCatalog,
+        renderCartPage,
+        renderProductDetail,
+        showToast,
+        updateCartBadge,
+        applyTheme,
+        wireContactForm
+    };
